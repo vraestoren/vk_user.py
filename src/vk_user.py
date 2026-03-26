@@ -27,7 +27,7 @@ class VkUser:
         self.get_long_poll_server()
 
     def _filter(self, data: dict) -> dict:
-        return {k: v for k, v in data.items() if v is not None}
+        return {key: value for key, value in data.items() if value is not None}
 
     def _post(self, method: str, **data) -> dict:
         return self.session.post(
@@ -66,7 +66,8 @@ class VkUser:
                     "content": update[5],
                     "from_id": update[6].get("from")
                 }
-            return {"type": "unknown", "c": response["updates"]}
+            return {
+                "type": "unknown", "c": response["updates"]}
         url = f"{self.server}?act=a_check&key={self.key}&ts={self.ts}&wait=25"
         response = self.session.get(url).json()
         try:
